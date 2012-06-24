@@ -76,9 +76,9 @@ GCCROOT = $(TOOLROOT)/avr/bin/
 AVRDUDE_CONF = -C$(TOOLROOT)/avr/etc/avrdude.conf
 
 else
-GCCROOT = /usr/local/avr/bin/
-AVRDUDE_CONF =
-AVRDUDE_ROOT = /usr/local/bin/
+GCCROOT = /usr/bin/
+AVRDUDE_CONF = /etc/avrdude.conf
+AVRDUDE_ROOT = /usr/bin/
 endif
 #
 # End of build environment code.
@@ -107,7 +107,7 @@ STK500-1 = $(STK500) -e -d$(MCU_TARGET) -pf -vf -if$(PROGRAM)_$(TARGET).hex \
 -lFF -LFF -f$(HFUSE)$(LFUSE) -EF8 -ms -q -cUSB -I200kHz -s -wt
 STK500-2 = $(STK500) -d$(MCU_TARGET) -ms -q -lCF -LCF -cUSB -I200kHz -s -wt
 
-OBJ        = $(PROGRAM).o
+OBJ        = prog_flash.o mmc_fat.o $(PROGRAM).o
 OPTIMIZE = -Os -fno-inline-small-functions -fno-split-wide-types -mshort-calls
 
 DEFS       = 

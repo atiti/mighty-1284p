@@ -184,6 +184,10 @@ asm("  .section .version\n"
 #include "pin_defs.h"
 #include "stk500.h"
 
+#include "mmc_fat.h"
+
+#define MMC_FLASH 1
+
 #ifndef LED_START_FLASHES
 #define LED_START_FLASHES 0
 #endif
@@ -371,6 +375,10 @@ int main(void) {
 #if LED_START_FLASHES > 0
   /* Flash onboard LED to signal entering of bootloader */
   flash_led(LED_START_FLASHES * 2);
+#endif
+ 
+#ifdef MMC_FLASH
+  mmc_updater();
 #endif
 
   /* Forever loop */
