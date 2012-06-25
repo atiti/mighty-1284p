@@ -110,7 +110,8 @@ STK500-2 = $(STK500) -d$(MCU_TARGET) -ms -q -lCF -LCF -cUSB -I200kHz -s -wt
 OBJ        = prog_flash.o mmc_fat.o $(PROGRAM).o
 OPTIMIZE = -Os -fno-inline-small-functions -fno-split-wide-types -mshort-calls
 
-DEFS       = 
+MMC_CS	   = PB3
+DEFS       = $(if $(findstring nommc,$(MMC_CS)) , , -DMMC_CS=$(MMC_CS) -DMMC_PORT=PORT$(shell echo $(MMC_CS) | cut -c 2) -DMMC_DDR=DDR$(shell echo $(MMC_CS) | cut -c 2 ))
 LIBS       =
 
 CC         = $(GCCROOT)avr-gcc

@@ -169,7 +169,7 @@
 asm("  .section .version\n"
     "optiboot_version:  .word " MAKEVER(OPTIBOOT_MAJVER, OPTIBOOT_MINVER) "\n"
     "  .section .text\n");
-
+
 #include <inttypes.h>
 #include <avr/io.h>
 #include <avr/pgmspace.h>
@@ -178,15 +178,15 @@ asm("  .section .version\n"
 // This saves cycles and program memory.
 #include "boot.h"
 
-
 // We don't use <avr/wdt.h> as those routines have interrupt overhead we don't need.
 
 #include "pin_defs.h"
 #include "stk500.h"
 
+#define MMC_FLASH 1
+
 #include "mmc_fat.h"
 
-#define MMC_FLASH 1
 
 #ifndef LED_START_FLASHES
 #define LED_START_FLASHES 0
@@ -314,7 +314,6 @@ void appStart() __attribute__ ((naked));
 /* main program starts here */
 int main(void) {
   uint8_t ch;
-
   /*
    * Making these local and in registers prevents the need for initializing
    * them, and also saves space because code no longer stores to memory.
@@ -378,7 +377,11 @@ int main(void) {
 #endif
  
 #ifdef MMC_FLASH
+#ifndef MMC_CS
+  #error "MMC chip-select not defined!"
+#else
   mmc_updater();
+#endif
 #endif
 
   /* Forever loop */
@@ -729,3 +732,4 @@ void appStart() {
     "ijmp\n"
   );
 }
+
