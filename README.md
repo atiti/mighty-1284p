@@ -1,3 +1,9 @@
+The code here has been sourced from maniacbug's mighty-1284p repository, and combined with thseiler's 2boots SD hex flasher.
+So basically optiboot with SD flashing for 1284P. Could it get any better than that? :D
+
+// Attila
+
+
 # Mighty 1284P: Platform files for Arduino to run on ATmega1284P
 
 ## What is it?
