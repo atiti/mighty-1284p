@@ -37,7 +37,7 @@
 /* with this export, other code can use it, too           */
 extern uint8_t buff[512];
 
-#if defined (__AVR_ATmega644__) || defined (__AVR_ATmega1284P__)
+#if defined (__AVR_ATmega644__)
  #define SPCR	SPCR0
  #define SPIE	SPIE0
  #define SPE	SPE0	

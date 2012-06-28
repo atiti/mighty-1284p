@@ -34,7 +34,8 @@ ISPTOOL	   = avrisp
 ISPPORT	   = /dev/ttyUSB0
 ISPSPEED   = -b 19200
 
-MCU_TARGET = atmega168
+#MCU_TARGET = atmega168
+MCU_TARGET = atmega1284
 LDSECTIONS  = -Wl,--section-start=.text=0x3e00 -Wl,--section-start=.version=0x3ffe
 
 # Build environments
@@ -241,7 +242,8 @@ atmega1284: TARGET = atmega1284p
 atmega1284: MCU_TARGET = atmega1284p
 atmega1284: CFLAGS += '-DLED_START_FLASHES=3' '-DBAUD_RATE=115200' '-DBIGBOOT'
 atmega1284: AVR_FREQ = 16000000L
-atmega1284: LDSECTIONS  = -Wl,--section-start=.text=0x1fc00
+#atmega1284: LDSECTIONS  = -Wl,--section-start=.text=0x1fc00
+atmega1284: LDSECTIONS = -Wl,--section-start=.text=0x1f800
 atmega1284: $(PROGRAM)_atmega1284p.hex
 atmega1284: $(PROGRAM)_atmega1284p.lst
 

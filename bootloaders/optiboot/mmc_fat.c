@@ -30,9 +30,9 @@
 
 #include <avr/io.h>
 #include <inttypes.h>
-#if !defined(__AVR_ATmega168__) || !defined(__AVR_ATmega328P__)
-#include <avr/eeprom.h>  /* filename from eeprom */
-#endif
+//#if !defined(__AVR_ATmega168__) || !defined(__AVR_ATmega328P__)
+//#include <avr/eeprom.h>  /* filename from eeprom */
+//#endif
 #include "pin_defs.h"
 #include "mmc_fat.h"
 #include "prog_flash.h"
@@ -425,10 +425,10 @@ static inline void read_hex_file(void) {
 void mmc_updater() {
 	uint16_t entrycounter = 0;
 	uint8_t i = 0;
-	uint8_t ch =0;
+	/*uint8_t ch =0;*/
 	
 	/* read board name from eeprom to pagebuffer */
-	while(i<8) {
+/*	while(i<8) {
 #if defined(__AVR_ATmega168__)  || defined(__AVR_ATmega328P__)
 		while(EECR & (1<<EEPE));
 		EEAR = (uint16_t)(void *)E2END -i;
@@ -441,8 +441,12 @@ void mmc_updater() {
 		pagebuffer[i] = ch;
 		i++;
 	}
-	pagebuffer[i] = '\0';
-	
+*/
+	pagebuffer[0] = 'U';
+	pagebuffer[1] = 'P';
+	pagebuffer[2] = 'D';
+	pagebuffer[3] = '\0';
+	i = 3;
 	if (i) {
 		/* we have found a board name! 		   */
 		/* now go on and see if we find a      */
