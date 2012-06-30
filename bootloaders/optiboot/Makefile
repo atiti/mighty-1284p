@@ -34,8 +34,7 @@ ISPTOOL	   = avrisp
 ISPPORT	   = /dev/ttyUSB0
 ISPSPEED   = -b 19200
 
-#MCU_TARGET = atmega168
-MCU_TARGET = atmega1284
+MCU_TARGET = atmega168
 LDSECTIONS  = -Wl,--section-start=.text=0x3e00 -Wl,--section-start=.version=0x3ffe
 
 # Build environments
@@ -240,18 +239,18 @@ atmega328_isp: isp
 
 atmega1284: TARGET = atmega1284p
 atmega1284: MCU_TARGET = atmega1284p
-atmega1284: CFLAGS += '-DLED_START_FLASHES=3' '-DBAUD_RATE=115200' '-DBIGBOOT'
+atmega1284: CFLAGS += '-DLED_START_FLASHES=3' '-DLED_DATA_FLASH' '-DBAUD_RATE=115200' '-DBIGBOOT'
 atmega1284: AVR_FREQ = 16000000L
 #atmega1284: LDSECTIONS  = -Wl,--section-start=.text=0x1fc00
-atmega1284: LDSECTIONS = -Wl,--section-start=.text=0x1f800
+atmega1284: LDSECTIONS = -Wl,--section-start=.text=0x1f800 -Wl,--section-start=.version=0x1fffe
 atmega1284: $(PROGRAM)_atmega1284p.hex
 atmega1284: $(PROGRAM)_atmega1284p.lst
 
 atmega1284_isp: atmega1284
 atmega1284_isp: TARGET = atmega1284p
 atmega1284_isp: MCU_TARGET = atmega1284p
-# 1024 byte boot
-atmega1284_isp: HFUSE = DE
+# 2048 byte boot
+atmega1284_isp: HFUSE = DA
 # Low power xtal (16MHz) 16KCK/14CK+65ms
 atmega1284_isp: LFUSE = FF
 # 2.7V brownout
@@ -262,15 +261,15 @@ atmega1284_slow: TARGET = atmega1284p_slow
 atmega1284_slow: MCU_TARGET = atmega1284p
 atmega1284_slow: CFLAGS += '-DLED_START_FLASHES=3' '-DBAUD_RATE=19200' '-DBIGBOOT'
 atmega1284_slow: AVR_FREQ = 16000000L
-atmega1284_slow: LDSECTIONS  = -Wl,--section-start=.text=0x1fc00
+atmega1284_slow: LDSECTIONS  = -Wl,--section-start=.text=0x1f800 -Wl,--section-start=.version=0x7ffe 
 atmega1284_slow: $(PROGRAM)_atmega1284p_slow.hex
 atmega1284_slow: $(PROGRAM)_atmega1284p_slow.lst
 
 atmega1284_slow_isp: atmega1284_slow
 atmega1284_slow_isp: TARGET = atmega1284p_slow
 atmega1284_slow_isp: MCU_TARGET = atmega1284p
-# 1024 byte boot
-atmega1284_slow_isp: HFUSE = DE
+# 2048 byte boot
+atmega1284_slow_isp: HFUSE = DA
 # Low power xtal (16MHz) 16KCK/14CK+65ms
 atmega1284_slow_isp: LFUSE = FF
 # 2.7V brownout

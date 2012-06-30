@@ -60,10 +60,10 @@ extern uint8_t buff[512];
 //Settings below are recommended for a MEGA168 and MEGA328
 #define SPI_PORT PORTB
 #define SPI_DDR  DDRB
-#define SPI_MISO	PB4		//DataOut of MMC
-#define SPI_MOSI	PB3		//DataIn of  MMC
-#define SPI_CLK  	PB5		//Clock of MMC
-#define SPI_SS          PB2             //SS pin of SPI interface
+#define SPI_MISO	PB6		//DataOut of MMC
+#define SPI_MOSI	PB5		//DataIn of  MMC
+#define SPI_CLK  	PB7		//Clock of MMC
+#define SPI_SS          PB4             //SS pin of SPI interface
 
 // These define the Pin, Port and DDR of the Chip Select to the MMC...
 // Used to be defined here, but is now in the Makefile 
